@@ -45,11 +45,11 @@ Por ejemplo:
 
 - Anotaciones sin parametros
 
-<img src="/home/gogiu/Escritorio/Codelab-Kotlin/images/anotaciones_con_param.png" width="1000" height="300">
+<img src="https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/anotaciones_con_param.png" width="1000" height="300">
 
 - Anotaciones con parametros
 
-<img src="/home/gogiu/Escritorio/Codelab-Kotlin/images/anotaciones_varios_param.png" width="1500" height="500">
+<img src="/https://github.com/Gogiu23/Codelab-Kotlin/blob/main/Codelab-Kotlin/images/anotaciones_varios_param.png" width="1500" height="500">
 
 - Anotaciones con varios parametros;
 
