@@ -34,14 +34,14 @@ Jet compose es un kit de herramientas moderno para crear IU de Android.
 Son una forma de adjuntar informacion adicional al codigo. 
 Para aplicar una anotacion, se agrega un prefijo al nombre (anotacion) con el caracter `@` al comienzo de la declaracion.
 
-<img src="/home/gogiu/Escritorio/Codelab-Kotlin/images/jetcompose.png" width="1500" height="500">
+<img src="https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/jetcompose.png" width="1500" height="500">
 __________________________________________________________________________________________
 
 
 ### Se pueden anotar diferentes elementos de codigo, incluidas propiedades, funciones y clases.
 Por ejemplo:
 
-<img src="/home/gogiu/Escritorio/Codelab-Kotlin/images/anotaciones_sin_param.png" width="1000" height="300">
+<img src="https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/anotaciones_sin_param.png" width="1000" height="300">
 
 - Anotaciones sin parametros
 
