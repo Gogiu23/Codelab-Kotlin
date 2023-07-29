@@ -170,7 +170,7 @@ Los tres elementos basicos en `Compose` son:
 
 <h1 align="center">
 
-[![elemnts!](https://github.com/Gogiu23/Codelab-Kotlin/images/elements1.png)](https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/elements1.png)
+[![](https://github.com/Gogiu23/Codelab-Kotlin/images/elements1.png)](https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/elements1.png)
 
 </h1>
 
