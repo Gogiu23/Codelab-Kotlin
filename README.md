@@ -170,9 +170,7 @@ Los tres elementos basicos en `Compose` son:
 
 <h1 align="center">
 
-
 ![](https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/elements1.png)
-
 
 </h1>
 
@@ -192,7 +190,7 @@ Esto se llama ***sintaxi de expression lambda***
 
 Kotlin ofrece una sintaxis especial para pasar funciones como parámetros a funciones cuando el último parámetro es una función.
 
-![](htpps://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/elements2.png)
+![](https://github.com/Gogiu23/Codelab-Kotlin/blob/main/images/elements2.png)
 
 Si quieres pasar una función como ese parámetro, puedes usar la sintaxis de expresión lambda final. En lugar de colocar el cuerpo de la función junto con el nombre de la función entre paréntesis ({}), debes colocar los paréntesis junto con el cuerpo de la función después de su nombre. Esta práctica es común en Compose, por lo que debes familiarizarte con la apariencia del código.
 
