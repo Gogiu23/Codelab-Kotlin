@@ -1,4 +1,8 @@
+# Cuadrante
 
+**Los imports se han omitido para facilitar la consulta de codigo**
+
+```kotlin
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,3 +74,4 @@ private fun CuadranteTexto(
             textAlign = TextAlign.Justify)
     }
 }
+```
