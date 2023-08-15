@@ -1,9 +1,21 @@
+import kotlin.properties.ReadWriteProperty 
+import kotlin.reflect.KProperty
+
+
 open class SmartDevice(val name: String, val category: String) {
 
+	open fun printDeviceInfo() {}
+
+	open fun decreaseVolume() {}
+
+	open fun previousChannel() {}
+
+	open fun decreaseBrightness() {}
+
 	var deviceStatus = "online"
-		protected set(value){
-			field = value
-		}
+	protected set(value){
+		field = value
+	}
 
 	open val deviceType = "unknown"
 	constructor(name: String, category: String, statusCode: Int) : this(name, category) {
@@ -23,20 +35,10 @@ open class SmartDevice(val name: String, val category: String) {
 }
 
 class SmartTvDevice(deviceName: String, deviceCategory: String) : 
-	SmartDevice(name = deviceName, category = deviceCategory) {
+SmartDevice(name = deviceName, category = deviceCategory) {
 
-	private var speakerVolume = 2
-	set(value) {
-		if (value in 0..100) {
-			field = value
-		}
-	}
-	private var channelNumber = 1
-	set(value) {
-		if (value in 0..200) {
-			field = value
-		}
-	}
+	private var speakerVolume by RangeRegulator(initialValue = 0, minValue = 0, maxValue = 100)
+	private var channelNumber by RangeRegulator(initialValue = 1, minValue = 0, maxValue = 200)
 
 	override val deviceType = "Smart TV"
 
@@ -47,6 +49,24 @@ class SmartTvDevice(deviceName: String, deviceCategory: String) :
 			"set to $channelNumber."
 		)
 	}
+
+	override fun decreaseVolume() {
+		speakerVolume--
+		println("Speaker volume decreased to $speakerVolume.")
+	}
+
+	override fun previousChannel() {
+		channelNumber--
+		println("Channel number decreased to $channelNumber.")
+	}
+
+	override fun printDeviceInfo() {
+		super.printDeviceInfo()
+		println("Device Name: ${name}")
+		println("Category: ${category}")
+		println("type: ${deviceType}")
+	}
+
 	override fun turnOff() {
 		super.turnOff()
 		println("$name turned off")
@@ -63,11 +83,24 @@ class SmartTvDevice(deviceName: String, deviceCategory: String) :
 }
 
 class SmartLightDevice(deviceName: String, deviceCategory: String) : 
-	SmartDevice(name = deviceName, category = deviceCategory){
+SmartDevice(name = deviceName, category = deviceCategory){
 
-	private var brightnessLevel = 0
+	// private var brightnessLevel = 0
+	private var brightnessLevel by RangeRegulator(initialValue = 2, minValue = 0, maxValue = 100)
 
 	override val deviceType = "Smart light"
+
+	override fun decreaseBrightness() {
+		brightnessLevel--
+		println("Brightness level decreased to $brightnessLevel.")
+	}
+
+	override fun printDeviceInfo() {
+		super.printDeviceInfo()
+		println("Device Name: ${name}")
+		println("Category: ${category}")
+		println("type: ${deviceType}")
+	}
 
 	override fun turnOn() {
 		super.turnOn()
@@ -83,6 +116,7 @@ class SmartLightDevice(deviceName: String, deviceCategory: String) :
 
 	fun increaseBrightness() {
 		brightnessLevel++
+		println("Brightness increased to $brightnessLevel.")
 	}
 }
 
@@ -91,7 +125,24 @@ class SmartHome(
 	val smartLightDevice: SmartLightDevice
 ) {
 	var deviceTurnOnCount = 0
-		private set
+	private set
+
+	fun decreaseVolume() {
+		smartTvDevice.decreaseVolume()
+	}
+	
+	fun decreaseBrightness() {
+		smartLightDevice.decreaseBrightness()
+	}
+
+	fun previousChannel() {
+		smartTvDevice.previousChannel()
+	}
+
+	fun printDeviceInfo() {
+		smartTvDevice.printDeviceInfo()
+		smartLightDevice.printDeviceInfo()
+	}
 
 	fun turnOnTv() {
 		deviceTurnOnCount++
@@ -127,10 +178,52 @@ class SmartHome(
 	}
 }
 
-fun main() {
-	var smartDevice: SmartDevice = SmartTvDevice("Android TV", "Entertainment")
-	smartDevice.turnOn()
+class RangeRegulator(
+	initialValue: Int,
+	private val minValue: Int,
+	private val maxValue: Int
+) : ReadWriteProperty<Any?, Int> {
 
-	smartDevice = SmartLightDevice("Google Light", "Utility")
-	smartDevice.turnOn()
+	var fieldData = initialValue
+
+	//Note: The KProperty is an interface that represents a declared property and lets you access the
+	//metadata on a delegated property.
+	//It's good to have high-level information about what the KProperty is.
+
+	override fun getValue(thisRef: Any?, property: KProperty<*>): Int {
+		return fieldData;
+	}
+	override fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
+		if (value in minValue..maxValue) {
+			fieldData = value
+		}
+	}
+
+}
+
+fun main() {
+	val smartHome = SmartHome(
+		SmartTvDevice("AndroidTV", "Entertainment"), 
+		SmartLightDevice("Google Light", "Utility")
+	)
+
+	smartHome.printDeviceInfo()
+	smartHome.turnOnTv()
+	smartHome.turnOnLight()
+	println("Total number of devices currently turned on: ${smartHome.deviceTurnOnCount}")
+	println()
+
+	smartHome.increaseTvVolume()
+	smartHome.changeTvChannelToNext()
+	smartHome.increaseLightBrightness()
+	println()
+
+	smartHome.decreaseVolume()
+	smartHome.previousChannel()
+	smartHome.decreaseBrightness()
+	println()
+
+
+	smartHome.turnOffAllDevices()
+	println("Total number of devices currently turned on: ${smartHome.deviceTurnOnCount}")
 }
